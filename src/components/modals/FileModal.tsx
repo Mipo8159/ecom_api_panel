@@ -1,10 +1,25 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useGetFilesQuery} from '../../store/file/file.api'
 import {FileType} from '../../types/file.type'
 import FileItem from '../ui/FileItem'
+import Pagination from '../ui/Pagination'
 
-const FileModal: React.FC = () => {
-  const {isLoading, isError, data} = useGetFilesQuery(1)
+interface FileModalProps {
+  files?: FileType[]
+  setFiles?: Function
+  single?: boolean
+  file?: FileType
+  setFile?: Function
+}
+const FileModal: React.FC<FileModalProps> = ({
+  files,
+  setFiles,
+  single,
+  file,
+  setFile,
+}) => {
+  const [page, setPage] = useState<number>(1)
+  const {isLoading, isError, data} = useGetFilesQuery(page)
 
   return (
     <div className="modal fade" id="file-modal">
@@ -31,20 +46,25 @@ const FileModal: React.FC = () => {
             ) : (
               <div className="row">
                 {data?.files.files.map((file: FileType) => (
-                  <FileItem key={file._id} css={'col-md-2'} />
+                  <FileItem
+                    key={file._id}
+                    file={file}
+                    css={'col-md-2'}
+                    files={files}
+                    setFiles={setFiles}
+                    active={false}
+                  />
                 ))}
               </div>
             )}
           </div>
 
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
+          <div className="modal-footer f-flex justify-content-center">
+            <Pagination
+              page={data?.files.meta.page!}
+              setPage={setPage}
+              lastPage={data?.files.meta.lastPage!}
+            />
           </div>
         </div>
       </div>

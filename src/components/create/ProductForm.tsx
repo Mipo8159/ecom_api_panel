@@ -1,17 +1,39 @@
-import React, {Fragment, useState} from 'react'
-import {CKEditor} from 'ckeditor4-react'
+import React, {Fragment, useState, ChangeEvent, FormEvent} from 'react'
+import {CKEditor, CKEditorEventPayload} from 'ckeditor4-react'
 import FileModal from '../modals/FileModal'
 import {BiImage} from 'react-icons/bi'
 import FileItem from '../ui/FileItem'
+import {FileType} from '../../types/file.type'
+import {FaStar} from 'react-icons/fa'
 
 const ProductForm: React.FC = () => {
-  const [files, setFiles] = useState<File[]>([])
+  const [title, setTitle] = useState<string>('')
+  const [body, setBody] = useState<string>('')
+  const [description, setDescription] = useState<string>('')
+  const [price, setPrice] = useState<string>('')
+  const [rating, setRating] = useState<string>('')
+  const [ratingH, setRatingH] = useState<number>(0)
+  const [files, setFiles] = useState<FileType[]>([])
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const product = {
+      title,
+      body,
+      description,
+      price,
+      rating,
+      images: files.map((f) => f._id),
+    }
+    console.log(product)
+  }
 
   return (
     <Fragment>
-      <FileModal />
+      <FileModal files={files} setFiles={setFiles} />
 
-      <form className="row">
+      <form onSubmit={onSubmit} className="row border border-secondary p-3 py-4">
         <div className="col-md-6">
           {/* TITLE */}
           <div className="mb-3">
@@ -21,21 +43,29 @@ const ProductForm: React.FC = () => {
             >
               title
             </label>
-            <input className="form-control border-secondary" id="title" />
+            <input
+              value={title}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setTitle(e.target.value)
+              }
+              className="form-control border-secondary"
+              id="title"
+            />
           </div>
 
           {/* BODY */}
           <div className="mb-3">
-            <label
-              htmlFor="exampleInputPassword1"
-              className="form-label fw-semibold text-capitalize"
-            >
+            <label htmlFor="body" className="form-label fw-semibold text-capitalize">
               body
             </label>
-            <input
-              type="password"
+            <textarea
+              value={body}
+              rows={3}
+              onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                setBody(e.target.value)
+              }
               className="form-control border-secondary"
-              id="exampleInputPassword1"
+              id="body"
             />
           </div>
 
@@ -50,6 +80,10 @@ const ProductForm: React.FC = () => {
             <CKEditor
               id="description"
               style={{border: '1px solid rgb(108,117,125)'}}
+              // value={description}
+              onChange={(e: CKEditorEventPayload<'change'>) =>
+                setDescription(e.editor.getData())
+              }
             />
           </div>
         </div>
@@ -64,18 +98,43 @@ const ProductForm: React.FC = () => {
               >
                 price
               </label>
-              <input className="form-control border-secondary" id="price" />
+              <input
+                value={price}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setPrice(e.target.value)
+                }
+                className="form-control border-secondary"
+                id="price"
+              />
             </div>
 
             {/* RATING */}
             <div className="mb-3 flex-grow-1 ms-2">
               <label
-                htmlFor="rating"
+                htmlFor="price"
                 className="form-label fw-semibold text-capitalize"
               >
-                rating
+                Rating
               </label>
-              <input className="form-control border-secondary" id="rating" />
+
+              <div
+                className="form-control d-flex justify-content-center"
+                style={{padding: '5px'}}
+              >
+                {[...Array(5).keys()].map((s) => (
+                  <div
+                    key={s}
+                    onClick={() => setRating(String(s + 1))}
+                    onMouseEnter={() => setRatingH(s + 1)}
+                    onMouseLeave={() => setRatingH(0)}
+                    className={`mx-3 rating ${
+                      (rating ? rating : ratingH) > s ? 'rating-active' : ''
+                    }`}
+                  >
+                    <FaStar />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -84,16 +143,20 @@ const ProductForm: React.FC = () => {
             associated files
           </label>
           <div
-            className="border border-secondary position-relative mb-3 p-2"
-            style={{height: '230px'}}
+            className="form-control border border-secondary position-relative mb-3 p-1"
+            style={{height: '310px'}}
           >
             <div className="row p-2">
-              <FileItem />
-              <FileItem />
-              <FileItem />
-              <FileItem />
-              <FileItem />
-              <FileItem />
+              {files.map((file) => (
+                <FileItem
+                  key={file._id}
+                  file={file}
+                  files={files}
+                  setFiles={setFiles}
+                  css={'col-md-3 img-box'}
+                  active={true}
+                />
+              ))}
             </div>
 
             <button
@@ -107,13 +170,13 @@ const ProductForm: React.FC = () => {
             </button>
           </div>
 
-          {/* PRODUCTS */}
-          <label htmlFor="rating" className="form-label fw-semibold text-capitalize">
+          {/* CATEGORIES */}
+          <label className="form-label fw-semibold text-capitalize">
             categories
           </label>
           <div
-            className="border border-secondary"
-            style={{minHeight: '112px'}}
+            className="border border-secondary form-control"
+            style={{minHeight: '80px'}}
           ></div>
         </div>
 

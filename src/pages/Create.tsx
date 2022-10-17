@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, Fragment} from 'react'
 import {useSearchParams} from 'react-router-dom'
 import CategoryForm from '../components/create/CategoryForm'
 import PostForm from '../components/create/PostForm'
@@ -14,7 +14,7 @@ const Create: React.FC = () => {
   }, [type])
 
   return (
-    <div className="d-flex flex-column align-items-center justify-content-center">
+    <div className="d-flex flex-column align-items-center justify-content-center pb-">
       <div className="d-flex mb-5 w-100 justify-content-center position-relative">
         <h1 className="text-uppercase fs-4">create</h1>
 
@@ -30,7 +30,7 @@ const Create: React.FC = () => {
         </select>
       </div>
 
-      <div className="border border-secondary px-4 py-3 w-100">
+      <Fragment>
         {type === 'product' ? (
           <ProductForm />
         ) : type === 'category' ? (
@@ -38,7 +38,7 @@ const Create: React.FC = () => {
         ) : (
           <PostForm />
         )}
-      </div>
+      </Fragment>
     </div>
   )
 }

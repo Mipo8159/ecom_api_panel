@@ -7,7 +7,7 @@ const Navbar: React.FC = () => {
     <nav className="navbar navbar-expand-lg bg-dark navbar-dark px-4 mb-5">
       <div className="container-fluid">
         <Link to={'/'}>
-          <a className="navbar-brand">ECOM PANEL</a>
+          <span className="navbar-brand">ECOM PANEL</span>
         </Link>
 
         <button
@@ -29,36 +29,36 @@ const Navbar: React.FC = () => {
           <ul className="navbar-nav">
             <li className="nav-item text-uppercase">
               <Link to={'/products'}>
-                <a className="nav-link active" aria-current="page">
+                <span className="nav-link active" aria-current="page">
                   Products
-                </a>
+                </span>
               </Link>
             </li>
 
             <li className="nav-item text-uppercase">
               <Link to={'/categories'}>
-                <a className="nav-link active" aria-current="page">
+                <span className="nav-link active" aria-current="page">
                   Categories
-                </a>
+                </span>
               </Link>
             </li>
 
             <li className="nav-item text-uppercase">
               <Link to={'/posts'}>
-                <a className="nav-link active" aria-current="page">
+                <span className="nav-link active" aria-current="page">
                   Posts
-                </a>
+                </span>
               </Link>
             </li>
 
             <li className="nav-item ms-4">
               <Link to={'/create'}>
-                <a
+                <span
                   className="nav-link bg-success active mt-1 d-flex align-items-center px-2"
                   aria-current="page"
                 >
                   <FaPlus />
-                </a>
+                </span>
               </Link>
             </li>
           </ul>

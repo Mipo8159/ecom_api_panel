@@ -2,9 +2,9 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import {FileResponse} from './types/fileResponse.type'
 
 export const fileApi = createApi({
-  reducerPath: 'https://ecom-api.idealapps.dev',
+  reducerPath: 'files',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://34.230.61.150/api',
+    baseUrl: 'https://ecom-api.idealapps.dev/api',
   }),
   endpoints: (build) => ({
     getFiles: build.query<FileResponse, number>({
