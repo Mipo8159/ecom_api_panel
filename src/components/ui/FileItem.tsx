@@ -7,9 +7,21 @@ type FileItemProps = {
   css?: string
   files?: FileType[]
   setFiles?: Function
-  active: boolean
+  active?: boolean
+  single?: boolean
+  setFile?: Function
+  image?: FileType
 }
-const FileItem: React.FC<FileItemProps> = ({file, css, files, setFiles, active}) => {
+const FileItem: React.FC<FileItemProps> = ({
+  file,
+  css,
+  files,
+  setFiles,
+  single,
+  setFile,
+  active,
+  image,
+}) => {
   const checked = (): boolean => {
     return Boolean(files?.some((f) => f._id === file?._id))
   }
@@ -28,12 +40,18 @@ const FileItem: React.FC<FileItemProps> = ({file, css, files, setFiles, active})
   }
 
   return (
-    <div onClick={selectImages} className={`mb-4 ${css ? css : 'col-md-3 '}`}>
+    <div
+      onClick={() => {
+        single ? setFile && setFile(file) : selectImages()
+      }}
+      className={`mb-4 ${css ? css : 'col-md-3'} `}
+      style={{cursor: 'pointer'}}
+    >
       <div
         className={`border border-secondary position-relative  ${
           checked() ? 'border-warning' : ''
-        }`}
-        style={{height: active ? '175px' : 'auto'}}
+        } ${image && image._id === file?._id ? 'border border-warning' : ''}`}
+        style={{height: active ? '175px' : '130px'}}
       >
         <img
           style={{objectFit: 'contain', height: '100%'}}
@@ -45,22 +63,23 @@ const FileItem: React.FC<FileItemProps> = ({file, css, files, setFiles, active})
           className="input-group mb-3 position-absolute"
           style={{top: '4px', left: '4px'}}
         >
-          {active ? (
-            <span
-              onClick={removeImages}
-              className="position-absolute file-rmv"
-              style={{top: '-5px', right: '8px'}}
-            >
-              <FaTimes />
-            </span>
-          ) : (
-            <input
-              className="form-check-input mt-0"
-              checked={checked()}
-              onChange={selectImages}
-              type="checkbox"
-            />
-          )}
+          {!single &&
+            (!active ? (
+              <span
+                onClick={removeImages}
+                className="position-absolute file-rmv"
+                style={{top: '-5px', right: '8px'}}
+              >
+                <FaTimes />
+              </span>
+            ) : (
+              <input
+                className="form-check-input mt-0"
+                checked={checked()}
+                onChange={selectImages}
+                type="checkbox"
+              />
+            ))}
         </div>
       </div>
     </div>

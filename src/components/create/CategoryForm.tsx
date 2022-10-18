@@ -1,22 +1,39 @@
-import React, {useState, useRef, ChangeEvent, Fragment} from 'react'
+import React, {useState, useRef, ChangeEvent, Fragment, FormEvent} from 'react'
 import {BiImage} from 'react-icons/bi'
+import {useAddCategoryMutation} from '../../store/category/category.api'
 import {FileType} from '../../types/file.type'
 import {ProductType} from '../../types/product.type'
 import FileModal from '../modals/FileModal'
 
 const CategoryForm: React.FC = () => {
+  const [addCategory, {isLoading}] = useAddCategoryMutation()
+
   const [title, setTitle] = useState<string>('')
   const [body, setBody] = useState<string>('')
   const [file, setFile] = useState<FileType>({} as FileType)
-  const [products, setProducts] = useState<ProductType[]>([])
+  const [products, setProducts] = useState<string[]>([])
 
-  const ref = useRef<HTMLButtonElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const category = {
+      title,
+      body,
+      image: file._id,
+      products,
+    }
+
+    addCategory({category})
+  }
 
   return (
     <Fragment>
-      <FileModal file={file} setFile={setFile} />
+      <FileModal setFile={setFile} single={true} image={file} />
 
       <form
+        onSubmit={onSubmit}
         className="row border border-secondary p-3 py-4 w-1000"
         style={{width: '1000px'}}
       >
@@ -81,8 +98,7 @@ const CategoryForm: React.FC = () => {
                 alt={file?.key}
               />
 
-              <button
-                type="button"
+              <div
                 ref={ref}
                 className="btn d-none position-absolute bg-black d-flex justify-content-center px-2"
                 style={{right: '10px', bottom: '10px'}}
@@ -90,7 +106,7 @@ const CategoryForm: React.FC = () => {
                 data-bs-target="#file-modal"
               >
                 <BiImage className="text-white fs-5" />
-              </button>
+              </div>
             </div>
           </div>
         </div>

@@ -8,15 +8,17 @@ interface FileModalProps {
   files?: FileType[]
   setFiles?: Function
   single?: boolean
-  file?: FileType
+  image?: FileType
   setFile?: Function
+  active?: boolean
 }
 const FileModal: React.FC<FileModalProps> = ({
   files,
   setFiles,
-  single,
-  file,
   setFile,
+  active,
+  single = false,
+  image,
 }) => {
   const [page, setPage] = useState<number>(1)
   const {isLoading, isError, data} = useGetFilesQuery(page)
@@ -52,7 +54,10 @@ const FileModal: React.FC<FileModalProps> = ({
                     css={'col-md-2'}
                     files={files}
                     setFiles={setFiles}
-                    active={false}
+                    setFile={setFile}
+                    single={single}
+                    active={active}
+                    image={image}
                   />
                 ))}
               </div>

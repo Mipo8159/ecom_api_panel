@@ -31,7 +31,7 @@ const ProductForm: React.FC = () => {
 
   return (
     <Fragment>
-      <FileModal files={files} setFiles={setFiles} />
+      <FileModal files={files} setFiles={setFiles} active={true} />
 
       <form onSubmit={onSubmit} className="row border border-secondary p-3 py-4">
         <div className="col-md-6">
@@ -154,7 +154,7 @@ const ProductForm: React.FC = () => {
                   files={files}
                   setFiles={setFiles}
                   css={'col-md-3 img-box'}
-                  active={true}
+                  active={false}
                 />
               ))}
             </div>
