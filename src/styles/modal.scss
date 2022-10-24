@@ -11,3 +11,10 @@
     color: crimson;
   }
 }
+
+.modal-mutate {
+  width: 400px !important;
+  height: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+}

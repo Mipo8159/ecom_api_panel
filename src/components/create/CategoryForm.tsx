@@ -1,11 +1,14 @@
 import React, {useState, useRef, ChangeEvent, Fragment, FormEvent} from 'react'
 import {BiImage} from 'react-icons/bi'
+import {useNavigate} from 'react-router-dom'
+import {toast} from 'react-toastify'
 import {useAddCategoryMutation} from '../../store/category/category.api'
 import {FileType} from '../../types/file.type'
 import {ProductType} from '../../types/product.type'
 import FileModal from '../modals/FileModal'
 
 const CategoryForm: React.FC = () => {
+  const navigate = useNavigate()
   const [addCategory, {isLoading}] = useAddCategoryMutation()
 
   const [title, setTitle] = useState<string>('')
@@ -25,7 +28,13 @@ const CategoryForm: React.FC = () => {
       products,
     }
 
-    addCategory({category})
+    addCategory({category}).then((res: any) => {
+      if (res.error) {
+        toast.error(res.error.data.error)
+      } else {
+        navigate('/categories')
+      }
+    })
   }
 
   return (

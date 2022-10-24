@@ -5,6 +5,7 @@ import {BiImage} from 'react-icons/bi'
 import FileItem from '../ui/FileItem'
 import {FileType} from '../../types/file.type'
 import {FaStar} from 'react-icons/fa'
+import {BiCategoryAlt} from 'react-icons/bi'
 
 const ProductForm: React.FC = () => {
   const [title, setTitle] = useState<string>('')
@@ -175,9 +176,19 @@ const ProductForm: React.FC = () => {
             categories
           </label>
           <div
-            className="border border-secondary form-control"
+            className="border border-secondary form-control position-relative"
             style={{minHeight: '80px'}}
-          ></div>
+          >
+            <button
+              type="button"
+              className="btn position-absolute bg-black d-flex justify-content-center px-2"
+              style={{right: '10px', bottom: '10px'}}
+              data-bs-toggle="modal"
+              data-bs-target="#file-modal"
+            >
+              <BiCategoryAlt className="text-white fs-5" />
+            </button>
+          </div>
         </div>
 
         <div className="w-100 d-flex justify-content-end">

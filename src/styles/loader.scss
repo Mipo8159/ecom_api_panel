@@ -1,0 +1,58 @@
+.dotted-loader {
+  border-width: 1.7px;
+  border-color: #de3163;
+  border-style: solid dotted;
+  border-radius: 50%;
+  position: absolute;
+  margin-top: -50px;
+  margin-left: -50px;
+  animation: rotate-right 2s linear infinite;
+}
+.dotted-loader::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border-width: 1.7px;
+  border-color: crimson;
+  border-style: solid dotted;
+  border-radius: 50%;
+  animation: rotate-left 1s linear infinite;
+}
+
+.loader-div {
+  display: relative;
+  width: 100%;
+}
+.default-loader {
+  position: absolute;
+  height: 80px;
+  width: 80px;
+  top: 50%;
+  right: 47%;
+
+  &::before {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@keyframes rotate-right {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
+@keyframes rotate-left {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(-1turn);
+  }
+}
