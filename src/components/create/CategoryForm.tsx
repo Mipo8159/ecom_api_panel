@@ -4,17 +4,15 @@ import {useNavigate} from 'react-router-dom'
 import {toast} from 'react-toastify'
 import {useAddCategoryMutation} from '../../store/category/category.api'
 import {FileType} from '../../types/file.type'
-import {ProductType} from '../../types/product.type'
 import FileModal from '../modals/FileModal'
 
 const CategoryForm: React.FC = () => {
   const navigate = useNavigate()
-  const [addCategory, {isLoading}] = useAddCategoryMutation()
+  const [addCategory] = useAddCategoryMutation()
 
   const [title, setTitle] = useState<string>('')
   const [body, setBody] = useState<string>('')
   const [file, setFile] = useState<FileType>({} as FileType)
-  const [products, setProducts] = useState<string[]>([])
 
   const ref = useRef<HTMLDivElement>(null)
 
@@ -25,7 +23,7 @@ const CategoryForm: React.FC = () => {
       title,
       body,
       image: file._id,
-      products,
+      products: [],
     }
 
     addCategory({category}).then((res: any) => {

@@ -9,15 +9,7 @@ interface CategoryCardProps {
   category: CategoryType
 }
 const CategoryCard: React.FC<CategoryCardProps> = ({category}) => {
-  const [removeCategory, {isLoading}] = useRemoveCategoryMutation()
-
-  if (isLoading) {
-    return (
-      <div className="loader-div">
-        <Loader />
-      </div>
-    )
-  }
+  const [removeCategory] = useRemoveCategoryMutation()
 
   return (
     <div className="col-md-3" style={{cursor: 'pointer'}}>

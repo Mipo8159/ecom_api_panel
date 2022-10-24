@@ -53,6 +53,7 @@ const FileItem: React.FC<FileItemProps> = ({
         } ${image && image._id === file?._id ? 'border border-warning' : ''}`}
         style={{height: active ? '175px' : '130px'}}
       >
+        <div className="file_desc">{file?.key.slice(37)}</div>
         <img
           style={{objectFit: 'contain', height: '100%'}}
           src={file?.imgUrl ? file?.imgUrl : '/placeholder.jpg'}

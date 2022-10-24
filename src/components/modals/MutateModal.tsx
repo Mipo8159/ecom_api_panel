@@ -28,7 +28,7 @@ const MutateModal: React.FC<MutateModal> = ({title, onAccept, _id}) => {
               className="btn btn-danger flex-grow-1 w-50 me-2"
               data-bs-dismiss="modal"
             >
-              Close
+              Decline
             </button>
             <button
               onClick={() => onAccept(_id)}
@@ -36,7 +36,7 @@ const MutateModal: React.FC<MutateModal> = ({title, onAccept, _id}) => {
               className="btn btn-dark flex-grow-1 w-50 ms-2"
               data-bs-dismiss="modal"
             >
-              Save changes
+              Accept
             </button>
           </div>
         </div>

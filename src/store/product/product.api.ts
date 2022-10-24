@@ -1,13 +1,13 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/dist/query/react'
 import {PostType} from '../../types/post.type'
 import {ProductType} from '../../types/product.type'
-import {AddPostRequest} from './request/addPost.request'
+import {AddProductRequest} from './request/addProduct.request'
 import {ProductResponse} from './types/productResponse.type'
 
 export const productApi = createApi({
   reducerPath: 'product',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://ecom-api.idealapps.dev/api',
+    baseUrl: 'http://localhost:5000/api',
   }),
   tagTypes: ['Product'],
   endpoints: (build) => ({
@@ -19,20 +19,20 @@ export const productApi = createApi({
           limit,
         },
       }),
-      transformResponse: (res: any) => res.data,
+      transformResponse: (res: any) => res.data.products,
       providesTags: ['Product'],
     }),
 
-    getPost: build.query<PostType, string>({
+    getProduct: build.query<ProductType, string>({
       query: (_id) => ({
-        url: `/posts/${_id}`,
+        url: `/products/${_id}`,
       }),
       transformResponse: (res: any) => res.data,
     }),
 
-    addProduct: build.mutation<ProductType, AddPostRequest>({
+    addProduct: build.mutation<ProductType, AddProductRequest>({
       query: (product) => ({
-        url: 'products',
+        url: '/products',
         method: 'POST',
         body: product,
       }),
@@ -40,13 +40,19 @@ export const productApi = createApi({
       invalidatesTags: ['Product'],
     }),
 
-    removeProduct: build.mutation<ProductType, void>({
-      query: () => ({
-        url: 'products',
+    removeProduct: build.mutation<ProductType, string>({
+      query: (_id) => ({
+        url: `/products/${_id}`,
         method: 'DELETE',
       }),
-      transformResponse: (res: any) => res.data,
       invalidatesTags: ['Product'],
     }),
   }),
 })
+
+export const {
+  useGetProductQuery,
+  useGetProductsQuery,
+  useAddProductMutation,
+  useRemoveProductMutation,
+} = productApi

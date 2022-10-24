@@ -5,7 +5,7 @@ export type PostType = {
   title: string
   body: string
   description: string
-  images: FileType[]
+  gallery: FileType[]
   createdAt: string
   updatedAt: string
 }
