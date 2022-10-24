@@ -5,7 +5,7 @@ import {AddPostRequest} from './request/addPost.request'
 export const postApi = createApi({
   reducerPath: 'posts',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:5000/api/',
+    baseUrl: 'https://ecom-api.idealapps.dev/api',
   }),
   tagTypes: ['Post'],
   endpoints: (build) => ({

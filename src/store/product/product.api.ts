@@ -7,7 +7,7 @@ import {ProductResponse} from './types/productResponse.type'
 export const productApi = createApi({
   reducerPath: 'product',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:5000/api',
+    baseUrl: 'https://ecom-api.idealapps.dev/api',
   }),
   tagTypes: ['Product'],
   endpoints: (build) => ({
