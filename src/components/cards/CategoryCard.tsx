@@ -34,14 +34,14 @@ const CategoryCard: React.FC<CategoryCardProps> = ({category}) => {
           <small className="w-75"> {category.body}</small>
         </div>
 
-        <span
+        {/* <span
           className="position-absolute file-rmv"
           style={{top: '5px', right: '8px'}}
           data-bs-toggle="modal"
           data-bs-target="#mutate-modal"
         >
           <FaTimes />
-        </span>
+        </span> */}
       </div>
     </div>
   )
