@@ -184,6 +184,7 @@ const ProductForm: React.FC = () => {
                 <option value="Msi">Msi</option>
                 <option value="Samsung">Samsung</option>
                 <option value="Xiaomi">Xiaomi</option>
+                <option value="Xiaomi">Huawei</option>
               </select>
             </div>
           </div>
