@@ -28,14 +28,14 @@ const PostCard: React.FC<PostCardProps> = ({post}) => {
           <p className="card-text">{post.body}</p>
         </div>
 
-        <span
+        {/* <span
           className="position-absolute file-rmv"
           style={{top: '5px', right: '8px'}}
           data-bs-toggle="modal"
           data-bs-target="#mutate-modal"
         >
           <FaTimes />
-        </span>
+        </span> */}
       </div>
     </div>
   )
