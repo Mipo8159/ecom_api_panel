@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import AppRouter from './router'
 import Navbar from './components/ui/Navbar'
 import {ToastContainer} from 'react-toastify'
+import MessengerCustomerChat from 'react-messenger-customer-chat'
 
 const App: React.FC = () => {
   return (
@@ -25,6 +26,9 @@ const App: React.FC = () => {
 
       <Navbar />
       <AppRouter />
+
+      {/* @ts-ignore */}
+      <MessengerCustomerChat pageId="100066578245102" appId="502538522017862" />
     </div>
   )
 }
